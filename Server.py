@@ -1,12 +1,12 @@
 # !/usr/bin/env python
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File    :   Server.py
 @Time    :   2021/07/05 13:40:50
 @Author  :   hyong 
 @Version :   1.0
 @Contact :   hyong_cs@outlook.com
-'''
+"""
 # here put the import lib
 
 import logging
@@ -24,16 +24,15 @@ ESTABLISHED = 3
 
 
 class Server(Process):
-
     def __init__(self, socket: str, interval: int) -> None:
         Process.__init__(self)
         self.interval = interval
 
         self.status = CLOSE
         try:
-            ip, port = socket.split(':')[0], socket.split(':')[1]
+            ip, port = socket.split(":")[0], socket.split(":")[1]
         except Exception:
-            logging.error('Split socket error!')
+            logging.error("Split socket error!")
             ip, port = "0.0.0.0", "-1"
 
         self.ip = ip
@@ -43,7 +42,7 @@ class Server(Process):
         self.seq = 1
 
     def get_socket(self) -> str:
-        return self.ip + ':' + str(self.port)
+        return self.ip + ":" + str(self.port)
 
     def run(self):
         self.start_service()
@@ -65,32 +64,49 @@ class Server(Process):
 
     def start_tcp_link(self, data: dict):
         # // logging.info('start tcp link')
-        if data['SYN'] == 1:
+        if data["SYN"] == 1:
             self.return_ack(data)
-        elif data['ACK'] == 1:
+        elif data["ACK"] == 1:
             self.establish_link(data)
 
-    def return_ack(self, data: dict):
-        logging.info('start first syn try')
+    def return_ack_tcp(self, data: dict) -> dict:
+        """获取第二次握手的报文
 
+        Args:
+            data (dict): 第一次握手的报文
+
+        Returns:
+            dict: 返回第二次握手的报文
+        """
         tcp = get_tcp_package()
-        # // logging.debug(f'server socket :{self.get_socket()} start first response')
 
-        x = data['seq']
-        tcp['SYN'], tcp['ACK'] = 1, 1
-        tcp['seq'], tcp['ack'] = self.seq, x + 1
-        tcp['src_port'], tcp['dest_port'] = self.port, data['src_port']
-        tcp['src_ip'] = self.ip
+        x = data["seq"]
+        tcp["SYN"], tcp["ACK"] = 1, 1
+        tcp["seq"], tcp["ack"] = self.seq, x + 1
+        tcp["src_port"], tcp["dest_port"] = self.port, data["src_port"]
+        tcp["src_ip"] = self.ip
 
-        logging.debug(f'return_ack tcp data is \n {tcp}')
+        return tcp
 
-        src_socket = data['src_ip'] + ":" + str(data['src_port'])
+    def return_ack(self, data: dict):
+        """第二次握手的报文
+
+        Args:
+            data (dict): 第一次握手的报文
+        """
+        logging.info("start first syn try")
+
+        tcp = self.return_ack_tcp(data)
+
+        logging.debug(f"return_ack tcp data is \n {tcp}")
+
+        src_socket = data["src_ip"] + ":" + str(data["src_port"])
 
         self.seq, self.status = self.seq + 1, SYNRCVD
-        logging.info(f'server status is SYNRCVD.')
+        logging.info(f"server status is SYNRCVD.")
 
         sent(src_socket, tcp)
 
     def establish_link(self, data: dict):
         self.status = ESTABLISHED
-        logging.info(f'server status is ESTABLISHED.')
+        logging.info(f"server status is ESTABLISHED.")
