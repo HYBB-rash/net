@@ -108,5 +108,10 @@ class Server(Process):
         sent(src_socket, tcp)
 
     def establish_link(self, data: dict):
+        """第三次握手
+
+        Args:
+            data (dict): 第三次握手的报文
+        """
         self.status = ESTABLISHED
         logging.info(f"server status is ESTABLISHED.")
