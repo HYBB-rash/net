@@ -47,6 +47,18 @@ class ClientMain(Client, Ui_MainWindow):
         self.ClientStatusShow.setText(self._translate("MainWindow", "ESTABLISH"))
         QApplication.processEvents()
 
+    def start_link_tcp(self, socket: str) -> dict:
+        tcp = super().start_link_tcp(socket)
+        self.ReportShower.append(str(tcp))
+        QApplication.processEvents()
+        return tcp
+    
+    def ack_response_tcp(self, data: dict) -> dict:
+        tcp = super().ack_response_tcp(data)
+        self.ReportShower.append(str(tcp))
+        QApplication.processEvents()
+        return tcp
+
 
 if __name__ == "__main__":
     c = ClientMain(2, "192.168.196.169", "127.0.0.1:7890")
