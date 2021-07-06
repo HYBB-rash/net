@@ -68,6 +68,9 @@ class Client(Process):
         tcp["dest_port"] = socket.split(":")[1]
         return tcp
 
+    def start_link_refresh(self):
+        self.status, self.seq = SYNSENT, self.seq + 1
+
     def start_link(self, socket: str) -> dict:
         """开始第一次握手
 
@@ -80,7 +83,7 @@ class Client(Process):
 
         tcp = self.start_link_tcp(socket)
 
-        self.status, self.seq = SYNSENT, self.seq + 1
+        self.start_link_refresh()
         logging.info(f"client status is synsent.")
         logging.debug(f"start_link tcp data package is \n {tcp}")
 
@@ -114,6 +117,9 @@ class Client(Process):
         tcp["src_ip"] = self.ip
 
         return tcp
+    
+    def ack_response_refresh(self):
+        self.status, self.seq = ESTABLISHED, self.seq + 1
 
     def ack_response(self, data: dict, socket: str):
         """第三次握手
@@ -125,7 +131,7 @@ class Client(Process):
 
         tcp = self.ack_response_tcp(data)
 
-        self.status, self.seq = ESTABLISHED, self.seq + 1
+        self.ack_response_refresh()
         logging.info(f"client status is established.")
 
         logging.debug(f"third link data is \n {tcp}")
