@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
         self.ClientStatusLabel.setFont(font)
         self.ClientStatusLabel.setObjectName("ClientStatusLabel")
         self.ReportShower = QtWidgets.QTextBrowser(self.centralwidget)
-        self.ReportShower.setGeometry(QtCore.QRect(430, 40, 281, 501))
+        self.ReportShower.setGeometry(QtCore.QRect(430, 90, 281, 451))
         self.ReportShower.setObjectName("ReportShower")
         self.ClientStatusShow = QtWidgets.QLabel(self.centralwidget)
         self.ClientStatusShow.setGeometry(QtCore.QRect(210, 110, 141, 41))
@@ -47,6 +47,12 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.ScoketLabel.setFont(font)
         self.ScoketLabel.setObjectName("ScoketLabel")
+        self.ReportLabel = QtWidgets.QLabel(self.centralwidget)
+        self.ReportLabel.setGeometry(QtCore.QRect(430, 30, 131, 51))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.ReportLabel.setFont(font)
+        self.ReportLabel.setObjectName("ReportLabel")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 17))
@@ -61,8 +67,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "TCP Client"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Client"))
         self.ClientStatusLabel.setText(_translate("MainWindow", "Client Status:"))
         self.ClientStatusShow.setText(_translate("MainWindow", "Close"))
         self.LinkButton.setText(_translate("MainWindow", "Start Tcp Link to Server"))
         self.ScoketLabel.setText(_translate("MainWindow", "Target Socket:"))
+        self.ReportLabel.setText(_translate("MainWindow", "Report:"))
