@@ -37,7 +37,7 @@ class Server(Process):
 
         self.ip = ip
         self.port = int(port)
-        self.links = list()
+        self.links = dict()
 
         self.seq = 1
 
@@ -103,7 +103,9 @@ class Server(Process):
         src_socket = data["src_ip"] + ":" + str(data["src_port"])
 
         self.seq, self.status = self.seq + 1, SYNRCVD
+        self.links[data['src_ip'] + ":" + str(data['src_port'])] = SYNRCVD
         logging.info(f"server status is SYNRCVD.")
+        logging.debug(f'link list: {self.links}')
 
         sent(src_socket, tcp)
 
@@ -114,4 +116,8 @@ class Server(Process):
             data (dict): 第三次握手的报文
         """
         self.status = ESTABLISHED
+        self.links[data['src_ip'] + ":" + str(data['src_port'])] = ESTABLISHED
+        logging.debug(f'link list: {self.links}')
+        
         logging.info(f"server status is ESTABLISHED.")
+        self.status = LISTEN
