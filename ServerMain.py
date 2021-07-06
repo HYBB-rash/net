@@ -65,6 +65,19 @@ class ServerMain(Server, Ui_MainWindow):
         super().establish_link_end_refresh()
         self.StatusLabel.setText(self._translate("MainWindows", "LISTEN"))
 
+    def return_ack_tcp(self, data: dict) -> dict:
+        self.ReportShower.append("get: \t" + str(data) + "\n")
+        QApplication.processEvents()
+
+        tcp = super().return_ack_tcp(data)
+        self.ReportShower.append("sent: \t" + str(tcp) + "\n")
+        QApplication.processEvents()
+        return tcp
+
+    def establish_link(self, data: dict):
+        self.ReportShower.append("get: \t" + str(data) + "\n")
+        QApplication.processEvents()
+        return super().establish_link(data)
 
 if __name__ == "__main__":
     logging.info("clear tmp data")
