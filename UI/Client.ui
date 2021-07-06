@@ -41,6 +41,11 @@
       <height>451</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
    <widget class="QLabel" name="ClientStatusShow">
     <property name="geometry">
@@ -87,6 +92,11 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
    </widget>
    <widget class="QLabel" name="ScoketLabel">
     <property name="geometry">
@@ -132,6 +142,11 @@
       <width>251</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QLabel" name="ClientSocketLabel">
