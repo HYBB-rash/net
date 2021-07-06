@@ -88,6 +88,11 @@ class ServerMain(Server, Ui_MainWindow):
         self.ReportShower.append("get: \n" + str(data) + "\n")
         QApplication.processEvents()
         return super().establish_link(data)
+    
+    def establish_link_end_refresh(self):
+        self.StatusLabel.setText(self._translate("MainWindows", "LISTEN"))
+        QApplication.processEvents()
+        return super().establish_link_end_refresh()
 
 if __name__ == "__main__":
     logging.info("clear tmp data")
