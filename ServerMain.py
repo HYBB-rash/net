@@ -40,11 +40,19 @@ class ServerMain(Server, Ui_MainWindow):
         socket = self.SocketInput.text()
         self.ip, self.port = socket.split(":")[0], int(socket.split(":")[1])
         self.start_service()
+    
+    def link_status(self) -> str:
+        res = ''
+        keys = self.links.keys()
+        for key in keys:
+            value = self.links[key]
+            res += key + "\t" + ("SYNSENT" if value == 2 else "ESTABLISHED") + "\n"
+        return res
 
     def return_ack_refresh(self, data: dict):
         super().return_ack_refresh(data)
         self.StatusLabel.setText(self._translate("MainWindow", "SYNRCVD"))
-        self.LinkShower.setText(self._translate("MainWindow", str(self.links)))
+        self.LinkShower.setText(self._translate("MainWindow", self.link_status()))
         QApplication.processEvents()
 
         logging.debug(f"change server status to SYNRCVD")
@@ -60,7 +68,7 @@ class ServerMain(Server, Ui_MainWindow):
         super().establish_link_refresh(data)
         logging.debug(f"change server status to ESTABLISH")
         self.StatusLabel.setText(self._translate("MainWindow", "ESTABLISH"))
-        self.LinkShower.setText(self._translate("MainWindow", str(self.links)))
+        self.LinkShower.setText(self._translate("MainWindow", self.link_status()))
         QApplication.processEvents()
 
     def establish_link_end_refresh(self):
