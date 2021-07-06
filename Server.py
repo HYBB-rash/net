@@ -47,9 +47,12 @@ class Server(Process):
     def run(self):
         self.start_service()
 
+    def set_listen_status(self):
+        self.status = LISTEN
+
     def start_service(self):
 
-        self.status = LISTEN
+        self.set_listen_status()
 
         while True:
             # // logging.debug('start get data from line')
@@ -88,6 +91,11 @@ class Server(Process):
 
         return tcp
 
+    def return_ack_refresh(self, data: dict):
+        self.seq, self.status = self.seq + 1, SYNRCVD
+        self.links[data['src_ip'] + ":" + str(data['src_port'])] = SYNRCVD
+
+
     def return_ack(self, data: dict):
         """第二次握手的报文
 
@@ -102,12 +110,15 @@ class Server(Process):
 
         src_socket = data["src_ip"] + ":" + str(data["src_port"])
 
-        self.seq, self.status = self.seq + 1, SYNRCVD
-        self.links[data['src_ip'] + ":" + str(data['src_port'])] = SYNRCVD
+        self.return_ack_refresh(data)
         logging.info(f"server status is SYNRCVD.")
         logging.debug(f'link list: {self.links}')
 
         sent(src_socket, tcp)
+
+    def establish_link_refresh(self, data:dict):
+        self.start = ESTABLISHED
+        self.links[data['src_ip'] + ":" + str(data['src_port'])] = ESTABLISHED
 
     def establish_link(self, data: dict):
         """第三次握手
@@ -115,9 +126,11 @@ class Server(Process):
         Args:
             data (dict): 第三次握手的报文
         """
-        self.status = ESTABLISHED
-        self.links[data['src_ip'] + ":" + str(data['src_port'])] = ESTABLISHED
+        self.establish_link_refresh(data)
         logging.debug(f'link list: {self.links}')
         
         logging.info(f"server status is ESTABLISHED.")
+        self.establish_link_end_refresh()
+    
+    def establish_link_end_refresh(self):
         self.status = LISTEN
