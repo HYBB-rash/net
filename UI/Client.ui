@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TCP Client</string>
+   <string>Client</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="ClientStatusLabel">
@@ -36,9 +36,9 @@
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>40</y>
+      <y>90</y>
       <width>281</width>
-      <height>501</height>
+      <height>451</height>
      </rect>
     </property>
    </widget>
@@ -104,6 +104,24 @@
     </property>
     <property name="text">
      <string>Target Socket:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ReportLabel">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>30</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Report:</string>
     </property>
    </widget>
   </widget>
