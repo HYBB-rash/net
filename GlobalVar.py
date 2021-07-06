@@ -21,7 +21,6 @@ def recv(socket: str):
 
 def sent(socket: str, data: dict):
     trans_data = json.load(fp=open('line.json', 'r', encoding='utf-8'))
-    logging.debug(f'set data {data}')
     trans_data[socket] = data
     json.dump(trans_data, open('line.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    logging.debug(f'trans data save')
+    logging.debug(f'trans data save {data}')
