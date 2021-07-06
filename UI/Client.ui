@@ -64,7 +64,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>250</y>
+      <y>380</y>
       <width>251</width>
       <height>71</height>
      </rect>
@@ -82,7 +82,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>200</y>
+      <y>330</y>
       <width>251</width>
       <height>41</height>
      </rect>
@@ -92,7 +92,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>150</y>
+      <y>280</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -122,6 +122,34 @@
     </property>
     <property name="text">
      <string>Report:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ClientSocketInput">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>220</y>
+      <width>251</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ClientSocketLabel">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>160</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Your Socket:</string>
     </property>
    </widget>
   </widget>
