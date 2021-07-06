@@ -46,7 +46,7 @@ class ServerMain(Server, Ui_MainWindow):
         keys = self.links.keys()
         for key in keys:
             value = self.links[key]
-            res += key + "\t" + ("SYNSENT" if value == 2 else "ESTABLISHED") + "\n"
+            res += key + "  " + ("SYNSENT" if value == 2 else "ESTABLISHED") + "\n"
         return res
 
     def return_ack_refresh(self, data: dict):
