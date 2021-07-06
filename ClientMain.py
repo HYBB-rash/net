@@ -35,6 +35,10 @@ class ClientMain(Client, Ui_MainWindow):
         sys.exit(app.exec_())
 
     def func_button_start(self):
+        client_socket = self.ClientSocketInput.text()
+        server_socket = self.SocketInput.text()
+        self.ip, self.port = client_socket.split(":")[0], int(client_socket.split(":")[1])
+        self.tar_socket = server_socket
         self.start_tcp_link(self.tar_socket)
 
     def start_link_refresh(self):
