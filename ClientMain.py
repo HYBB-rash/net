@@ -49,13 +49,14 @@ class ClientMain(Client, Ui_MainWindow):
 
     def start_link_tcp(self, socket: str) -> dict:
         tcp = super().start_link_tcp(socket)
-        self.ReportShower.append(str(tcp))
+        self.ReportShower.append("sent: \t" + str(tcp) + "\n")
         QApplication.processEvents()
         return tcp
     
     def ack_response_tcp(self, data: dict) -> dict:
+        self.ReportShower.append("get: \t" + str(data) + "\n")
         tcp = super().ack_response_tcp(data)
-        self.ReportShower.append(str(tcp))
+        self.ReportShower.append("sent: \t" + str(tcp) + "\n")
         QApplication.processEvents()
         return tcp
 
