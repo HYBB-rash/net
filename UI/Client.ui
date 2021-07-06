@@ -78,7 +78,7 @@
      <string>Start Tcp Link to Server</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="SocketIpout">
+   <widget class="QLineEdit" name="SocketInput">
     <property name="geometry">
      <rect>
       <x>70</x>
