@@ -68,16 +68,16 @@ class ServerMain(Server, Ui_MainWindow):
         self.StatusLabel.setText(self._translate("MainWindows", "LISTEN"))
 
     def return_ack_tcp(self, data: dict) -> dict:
-        self.ReportShower.append("get: \t" + str(data) + "\n")
+        self.ReportShower.append("get: \n" + str(data) + "\n")
         QApplication.processEvents()
 
         tcp = super().return_ack_tcp(data)
-        self.ReportShower.append("sent: \t" + str(tcp) + "\n")
+        self.ReportShower.append("sent: \n" + str(tcp) + "\n")
         QApplication.processEvents()
         return tcp
 
     def establish_link(self, data: dict):
-        self.ReportShower.append("get: \t" + str(data) + "\n")
+        self.ReportShower.append("get: \n" + str(data) + "\n")
         QApplication.processEvents()
         return super().establish_link(data)
 
