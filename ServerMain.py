@@ -37,6 +37,8 @@ class ServerMain(Server, Ui_MainWindow):
         sys.exit(app.exec_())
 
     def func_button_start(self):
+        socket = self.SocketInput.text()
+        self.ip, self.port = socket.split(":")[0], int(socket.split(":")[1])
         self.start_service()
 
     def return_ack_refresh(self, data: dict):
